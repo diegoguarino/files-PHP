@@ -12,7 +12,7 @@
             
         echo "Hola mundo <br>";
         echo date ("d/m/Y");
-   
+       
     ?>
     
 </body>
