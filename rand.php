@@ -7,12 +7,13 @@ error_reporting(E_ALL);
 
 $valor = rand(1,5);
 
-if($valor == 1||3||5){
-    echo "el número es impar";
+if($valor == 1 || $valor == 3|| $valor == 5){
+    echo "el número $valor es impar";
 } else{
-    echo "el número es par";
+    echo "el número $valor es par";
 }
 
+echo $valor == 1 || $valor == 3 || $valor == 5 ? "El nùmero $valor es impar" : "El nùmero $valor es par"
 
 
 
