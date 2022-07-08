@@ -70,13 +70,13 @@ $aProductos[] = array(
                 <tbody>
                 <?php
                 $contador = 0;
-                while ($contador < 3)  { ?>
+                while ($contador < 3){ ?>
                 
                     <tr>
                         <td><?php echo $aProductos[$contador]["nombre"]; ?></td>
                         <td><?php echo $aProductos[$contador]["marca"]; ?></td>
                         <td><?php echo $aProductos[$contador]["modelo"]; ?></td>
-                        <td><?php echo $aProductos[$contador]["stock"] > 10 ? "Hay Stock" : ($aProductos[$contador]["stock"] > 0 && $aProductos[$contador]["stock"] <= 10 ? "Poco Stock" : "No hay Stock"); ?></td>
+                        <td><?php echo $aProductos[$contador]["stock"] > 0 ? "Hay Stock" : ($aProductos[$contador]["stock"] > 0 && $aProductos[$contador]["stock"] <= 10 ? "Poco Stock" : "No hay Stock"); ?></td>
                         <td><?php echo $aProductos[$contador]["precio"]; ?></td>
                         <td><button class="btn btn-primary">Comprar</button></td>
                     </tr>

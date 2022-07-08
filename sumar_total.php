@@ -27,7 +27,7 @@ $aProductos[] = array(
     "stock" => 5,
     "precio" => 45000,
 );
-$sumatoriaPrecio =0;
+
 
 
 //print_r($aProductos);
@@ -70,9 +70,11 @@ $sumatoriaPrecio =0;
                 </thead>
                 <tbody>
                 <?php
+                $sumatoriaPrecio =0;
                 $contador = 0;
-                for ($contador = 0; $contador <= count($aProductos);$contador++ ){
-                    $sumatoriaPrecio += $aProductos[$contador]["precio"];
+
+                for ($contador = 0; $contador <= count($aProductos); $contador++ ){
+                    
                 ?>
                     <tr>
                         <td><?php echo $aProductos[$contador]["nombre"]; ?></td>
@@ -84,7 +86,7 @@ $sumatoriaPrecio =0;
                     </tr>
                 <?php
                 }    
-                    ?>
+                ?>
                 </tbody>
                     
                 </table>
