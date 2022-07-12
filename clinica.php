@@ -51,7 +51,7 @@ $aPacientes[] = array(
         </div>
         <div class="row">
             <div class="col-12">
-                <table class="table table-hover">
+                <table class="table table-hover border">
                     <thead>
                         <tr>
                             <th>DNI</th>
@@ -60,23 +60,23 @@ $aPacientes[] = array(
                             <th>Peso</th>
                         </tr>
                     </thead>
-                    <!-- <?php ?> -->
+                    
                     <tbody>
                     <?php
-                    $contador=0;
-                 // while ($contador<4){
-                    for ($contador=0; $contador< count($aPacientes); $contador++ ){
+                        $contador=0;
                         
-                    ?>
+                        foreach ($aPacientes as $pacientes){
+                            
+                                            ?>
                         <tr>
-                            <td><?php echo $aPacientes[$contador]["dni"];?></td>
-                            <td><?php echo $aPacientes[$contador]["nombre"];?></td>
-                            <td><?php echo $aPacientes[$contador]["edad"];?></td>
-                            <td><?php echo $aPacientes[$contador]["peso"];?></td>
+                            <td><?php echo $pacientes["dni"];?></td>
+                            <td><?php echo $pacientes["nombre"];?></td>
+                            <td><?php echo $pacientes["edad"];?></td>
+                            <td><?php echo $pacientes["peso"];?></td>
                         </tr>
                     <?php
-                 // $contador++;
-                    }
+                        }
+                        
                     ?>
                         
                     </tbody>
