@@ -69,38 +69,37 @@ function contar($aArray){
 
 
 
-    echo "Cantidad de productos: . contar($aProductos);
-    echo "Cantidad de pacientes: . contar($aPacientes);
-    echo "Cantidad de notas: . contar($aNotas);
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    echo "Cantidad de productos:" . contar($aProductos) . "<br>";
+    echo "Cantidad de pacientes:" . contar($aPacientes) . "<br>";
+    echo "Cantidad de notas:" . contar($aNotas);
 
 
 
 
 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

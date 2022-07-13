@@ -8,12 +8,10 @@ function clacularNeto($bruto){
     
     return $bruto - ($bruto*0.17);
 
-
-    echo "El sueldo neto es $" . calcularNeto(80000);
 }
+
     
-
-
+echo "El sueldo neto es $" . clacularNeto(80000);
 
 
 
