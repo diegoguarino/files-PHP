@@ -10,9 +10,14 @@ $aEmpleados[] = array("dni" => "40874456", "nombre" => "Ana Del Valle", "bruto" 
 $aEmpleados[] = array("dni" => "67567565", "nombre" => "Andrés Perez", "bruto" => 100000);
 $aEmpleados[] = array("dni" => "75744545", "nombre" => "Victoria Luz", "bruto" => 70000);
 
-function clacularNeto($bruto){
+
+
+
+
+function calcularNeto($bruto) {
     return $bruto-($bruto*0.17);
 }
+
 
 //strtoupper
 
@@ -26,7 +31,7 @@ function clacularNeto($bruto){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>Listado</title>
+    <title>Listado de empleados</title>
 </head>
 
 <body>
@@ -48,20 +53,21 @@ function clacularNeto($bruto){
                     </thead>
                     <tbody>
                         <?php
-                        $contador = 0;
-                        foreach ($aEmpleados as $empleados){                             
+                        
+                        foreach ($aEmpleados as $empleados) {                             
                         ?>
                         <tr>
                             <td><?php echo $empleados["dni"]; ?></td>
-                            <td><?php echo $empleados["nombre"]; ?></td>                                                  
-                            <td><?php echo clacularNeto(85000.30); ?></td>
+                            <td><?php echo strtoupper ($empleados["nombre"]); ?></td>                                                                       
+                            <td>$<?php echo number_format (calcularNeto($empleados["bruto"]), 2, ",", "." ); ?></td>
                         </tr>
                         <?php
-                        }                                          
-                        ?>                       
+                        }                                       
+                        ?>                                                                  
 
                     </tbody>
-                </table>
+                </table>        
+                <p>Cantidad de empleados activos: <?php echo count($aEmpleados); ?></p>
             </div>
         </div>
     </main>
