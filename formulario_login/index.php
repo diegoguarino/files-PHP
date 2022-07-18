@@ -5,10 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if ($_POST) {
-    $usuario = $_POST("txtUsuario");
-    $clave = $_POST("txtClave");
+    $usuario = $_POST["txtUsuario"];
+    $clave = $_POST["txtClave"];
+    
 
-    if ($usuario == "admin" && $clave == "123456") {
+    if ($usuario != "" && $clave != "") {
         header("Location: http://localhost/php/formulario_login/acceso-confirmado.php");
     }else {
         $msg = "Únicamente valido para usuarios registrados";
@@ -35,26 +36,27 @@ if ($_POST) {
                 <h1>Formulario</h1>
             </div>
         </div>
-        <form class="form" method="POST" action="index.php">
-            <div class="row">
-                <div class="col-2 py-2">
-                    <label for="txtUsuario">Usuario:</label>
-                    <input class="form-control" type="text" name="txtUsuario" id="txtUsuario">
-                </div>
+        <div class="row">
+            <div class="col-3">
+                <?php if(isset($msg)){
+                    echo $msg;
+                }
+                ?>            
+                <form method="POST" action="index.php"> 
+                    <div class="py-3">                      
+                        <label for="txtUsuario">Usuario:</label>
+                        <input class="form-control" type="text" name="txtUsuario" id="txtUsuario">
+                    </div>                
+                    <div class="py-3">
+                        <label for="txtClave">Clave:</label>
+                        <input class="form-control" type="password" name="txtClave" id="txtClave">
+                    </div>    
+                    <div class="py-3">       
+                        <button class="btn btn-primary" type="submit">ENVIAR</button>
+                    </div>
+                </form>
             </div>
-            <div class="row">
-                <div class="col-2 py-2">
-                    <label for="txtClave">Clave:</label>
-                    <input class="form-control" type="password" name="txtClave" id="txtClave">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 py-2">
-                    <button class="btn btn-primary" type="submit">ENVIAR</button>
-                </div>
-            </div>
-        </form>
-    
+        </div>    
 
     </main>
     
