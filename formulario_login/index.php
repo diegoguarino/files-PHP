@@ -4,13 +4,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if ($_POST) {
+if ($_POST) { //es postback?
     $usuario = $_POST["txtUsuario"];
     $clave = $_POST["txtClave"];
     
 
     if ($usuario != "" && $clave != "") {
-        header("Location: http://localhost/php/formulario_login/acceso-confirmado.php");
+        header("Location: acceso-confirmado.php");
     }else {
         $msg = "Únicamente valido para usuarios registrados";
     }
@@ -37,28 +37,27 @@ if ($_POST) {
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
-                <?php if(isset($msg)){
-                    echo $msg;
-                }
-                ?>            
+            <div class="col-4">
+                <?php if(isset($msg)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $msj; ?>
+                    </div>                                       
+                <?php endif; ?>            
                 <form method="POST" action="index.php"> 
                     <div class="py-3">                      
-                        <label for="txtUsuario">Usuario:</label>
+                        <label for="">Usuario:</label>
                         <input class="form-control" type="text" name="txtUsuario" id="txtUsuario">
                     </div>                
                     <div class="py-3">
-                        <label for="txtClave">Clave:</label>
+                        <label for="">Clave:</label>
                         <input class="form-control" type="password" name="txtClave" id="txtClave">
                     </div>    
                     <div class="py-3">       
-                        <button class="btn btn-primary" type="submit">ENVIAR</button>
+                        <button class="btn btn-primary" type="submit">INGRESAR</button>
                     </div>
                 </form>
             </div>
         </div>    
-
-    </main>
-    
+    </main>    
 </body>
 </html>
