@@ -6,41 +6,53 @@ error_reporting(E_ALL);
 
 session_start();
 
+
 if(isset($_SESSION["listadoClientes"])){
     //Si existe la variable de session listadoClientes asigno su contenido a aClientes
     $aClientes = $_SESSION["listadoClientes"];
 } else {
     $aClientes = array();
 }
-
+//pregunta si es post back sea para enviar o eliminar todos
 if($_POST){
-    //Si hace click en Enviar entonces:
-    //Asignamos en variables los datos que vienen del formulario
-    $nombre = $_POST["txtNombre"];
-    $dni = $_POST["txtDni"];
-    $telefono = $_POST["txtTelefono"];
-    $edad = $_POST["txtEdad"];
 
-    //Creamos un array que contendrá el listado de clientes
-    $aClientes[] = array("nombre" => $nombre, 
-                        "dni" => $dni,
-                        "telefono" => $telefono,
-                        "edad" => $edad
-    );
-    //Actualiza el contenido de variable de session
-    $_SESSION["listadoClientes"] = $aClientes;
+    if(isset($_POST["btnEnviar"])){
+        //Si hace click en Enviar entonces:
+        
+        //Asignamos en variables los datos que vienen del formulario
+        $nombre = $_POST["txtNombre"];
+        $dni = $_POST["txtDni"];
+        $telefono = $_POST["txtTelefono"];
+        $edad = $_POST["txtEdad"];
 
-    //Si hace click en Eliminar:
-    //session_destroy();
+        //Creamos un array que contendrá el listado de clientes
+        $aClientes[] = array("nombre" => $nombre, "dni" => $dni, "telefono" => $telefono, "edad" => $edad);
 
-    //Agregar para eliminar una fila
+        //Actualiza el contenido de variable de session
+        $_SESSION["listadoClientes"] = $aClientes;   
+    }
 
+    if(isset($_POST["btnEliminar"])){
+    //Si hace click en Eliminar: 
+    session_destroy();
+    $aClientes = array();
+    }  
 
 }
+//Agregar para eliminar una fila*/ 
 
+//pregunta si viene pos en la query string
+if(isset($_GET["pos"])){
+    //recupero el dato que viene desde la query string via get
+    $pos = $_GET["pos"];
+    //elimina la posicion del array indicada
+    unset($aClientes[$pos]);
+    //Actualizo l avariable de session con el array actualizado
+    $_SESSION["listadoClientes"] = $aClientes;
+    header("Location: clientes_session.php");
+}
+   
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -49,8 +61,9 @@ if($_POST){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Document</title>    
 </head>
 
 <body>
@@ -69,19 +82,19 @@ if($_POST){
                     </div>
                     <div class="py-2">
                         <label for="">DNI:</label>
-                        <input class="form-control" type="text" name="txtDni" id="txtDni" placeholder="Ingrese el número de documento">
+                        <input class="form-control" type="text" name="txtDni" id="txtDni">
                     </div>
                     <div class="py-2">
                         <label for="">Teléfono:</label>
-                        <input class="form-control" type="tel" name="txtTelefono" id="txtTelefono" placeholder="Ingrese su número de télefono">
+                        <input class="form-control" type="tel" name="txtTelefono" id="txtTelefono">
                     </div>
                     <div class="py-2">
                         <label for="">Edad:</label>
-                        <input class="form-control" type="text" name="txtEdad" id="txtEdad" placeholder="Ingrese su edad">
+                        <input class="form-control" type="text" name="txtEdad" id="txtEdad">
                     </div>
                     <div class="py-2">
-                        <button class="btn btn-primary" type="submit">Enviar</button>
-                        <button class="btn btn-danger" type="reset">Eliminar</button>
+                        <button class="btn btn-primary" name="btnEnviar" id="btnEnviar" type="submit">Enviar</button>
+                        <button class="btn btn-danger" name="btnEliminar" id="btnEliminar" type="submit">Eliminar</button>
                     </div>
                 </form>
             </div>
@@ -94,14 +107,16 @@ if($_POST){
                         <th>DNI</th>
                         <th>Telefono</th>
                         <th>Edad</th>
+                        <th></th>
                     </thead>
                     <tbody>
-                        <?php foreach ($aClientes as $cliente): ?>
+                        <?php foreach ($aClientes as $pos => $cliente): ?>
                         <tr>
                             <td><?php echo $cliente["nombre"];?> </td>
                             <td><?php echo $cliente["dni"];?> </td>
                             <td><?php echo $cliente["telefono"];?> </td>
                             <td><?php echo $cliente["edad"];?> </td>
+                            <td><a href="clientes_session.php?pos=<?php echo $pos; ?>"><i class="bi bi-trash"></i></a></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
