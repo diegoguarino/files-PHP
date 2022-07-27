@@ -8,17 +8,20 @@ error_reporting(E_ALL);
 function print_f($variable)
     {
         if (is_array($variable)) {
-            $contenido = "";
+            $archivo = fopen('datos.txt', 'a+');
+            fwrite($archivo, "\n\nDatos del array ==> \n ");
+
             foreach ($variable as $item) {
-                $contenido .= $item . "\n";
+                fwrite($archivo, $item . '\n');
             }
-            file_put_contents("datos.txt", $contenido);
+            fclose($archivo);
     
         } else {
             //Entonces es string, guardo el contenido en el archivo “datos.txt”
+            $contenido = "Datos de la variable ==>\n" . $variable;
             file_put_contents("datos.txt", $variable);
         }
-        echo "Archivo actualizado.";
+        echo "Archivo generado.";
     
     
     
@@ -27,8 +30,8 @@ function print_f($variable)
 
 //Uso
 $aNotas = array(8,5,7,9,10);
-$msg = "Este es un mensaje";
-print_f($aNotas);
+$msg = "Este es un mensaje!";
+print_f($msg);
 
 
 
