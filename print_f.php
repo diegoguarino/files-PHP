@@ -22,9 +22,6 @@ function print_f($variable)
             file_put_contents("datos.txt", $variable);
         }
         echo "Archivo generado.";
-    
-    
-    
     }    
 	    
 
