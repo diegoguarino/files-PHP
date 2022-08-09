@@ -95,8 +95,8 @@ if (isset($_GET["do"]) && $_GET["do"] == "eliminar"){
             </div>
         </div>
         <div class="row pb-3">
-            <div>
-                <form action="" method="post">
+            <div class="col-12">
+                <form action="" method="post" class="form">
                     <div class="row">
                         <div class="py-1 col-4">
                             <label for="lstPrioridad">Prioridad</label>
