@@ -14,11 +14,9 @@ if(file_exists("invitados.text")){
     $aDocumentos = array();
 }
 
-    
-
 
 if($_POST){
-
+    
     if(isset($_POST["btnInvitado"])){
         $documento = $_REQUEST["txtDocumento"];
         //si el DNI ingresado se encuentra en la linea se mostrara un mensaje Bienvenido 
@@ -72,9 +70,13 @@ if($_POST){
         <div class="row">
             <div class="col-12">
                 <form action="" method="post" class="form">
-                    <div class="alert alert-info" role="alert">
-                    <?php echo $mensaje; ?>
-                    </div>    
+
+                    <?php if(isset($mensaje)): ?>
+                    <div class="alert alert-info" role="alert">                       
+                        <?php echo $mensaje; 
+                        endif; ?>
+                    </div>  
+                     
                     <div class="col-12 py-2">
                         <label for="" class="pb-2">Ingrese el DNI:</label>
                         <input type="text" name="txtDocumento" id="txtDocumento" class="form-control" require>
