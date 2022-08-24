@@ -1,67 +1,135 @@
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//Definiciones de las clases
 class Persona{
-    public $dni;
-    public $nombre;
-    public $edad;
-    public $nacionalidad;
+    protected $dni;
+    protected $nombre;
+    protected $edad;
+    protected $nacionalidad;
 
-    public function imprimir(){}
+    public function setDni($dni){ $this->dni = $dni; }
+    public function getDni(){ return $this->dni; }
+    
+    public function setNombre($nombre){ $this->nombre = $nombre; }
+    public function getNombre(){ return $this->nombre; }
+    
+    public function setEdad($edad){ $this->edad = $edad; }
+    public function getEdad(){ return $this->edad; }
+    
+    public function setNacionalidad($nacionalidad){ $this->nacionalidad = $nacionalidad; }
+    public function getNacionalidad(){ return $this->nacionalidad; }
+
+    public function imprimir(){
+
+    }
+
+    public function __destruct() {
+        echo "Destruyendo el objeto " . $this->nombre . "<br>";
+    }
 }
-//Alumno "es" Persona
-class Alumno extends Persona{
-    public $legajo;
-    public $notaPortfolio;
-    public $notaPhp;
-    public $notaProyecto;
 
-    public function __construct(){
+class Alumno extends Persona{
+    private $legajo;
+    private $notaPortfolio;
+    private $notaPhp;
+    private $notaProyecto;
+
+    public function __get($propiedad) {
+        return $this->$propiedad;
+    }
+
+    public function __set($propiedad, $valor) {
+        $this->$propiedad = $valor;
+    }
+
+    public function __construct($dni="", $nombre=""){
+        $this->dni = $dni;
+        $this->nombre = $nombre;
         $this->notaPortfolio = 0.0;
         $this->notaPhp = 0.0;
         $this->notaProyecto = 0.0;
     }
 
-    public function imprimir(){
-        echo "DNI: " . $this->dni . "<br>";
-        echo "Nombre: " . $this->nombre . "<br>";
-        echo "Edad: " . $this->edad . "<br>";
-        echo "Nacionalidad: " . $this->nacionalidad . "<br>";
-        echo "Nota Portfolio: " . $this->notaPortfolio . "<br>";
-        echo "Nota PHP: " . $this->notaPhp . "<br>";
-        echo "Nota Proyecto: " . $this->notaProyecto . "<br>";
-        echo "El promedio es: " . $this->calcularPromedio() . "<br>";
+    public function __destruct() {
+        echo "Destruyendo el objeto " . $this->nombre . "<br>";
     }
 
-    public function calcularPromedio(){
-        return ($this->notaPortfolio + $this->notaPhp + $this->notaProyecto) / 3;
-    }       
-}
 
+    public function imprimir(){
+        echo "Alumno:  " . $this->nombre . "<br>";
+        echo "Documento:  " . $this->dni . "<br>";
+        echo "Nota PHP:  " . $this->notaPhp . "<br><br>";
+        echo "Nota Portfolio:  " . $this->notaPortfolio . "<br><br>";
+        echo "Nota Proyectoo:  " . $this->notaProyecto . "<br><br>";
+    }
+
+     public function calcularPromedio(){
+
+    }
+
+}
 
 class Docente extends Persona{
-    public $especialidad;
+    private $especialidad;
 
-    public function imprimir(){}
-    public function imprimirEspecialidadesHabilitadas(){}
+    const ESPECIALIDAD_WP = "Wordpress";
+    const ESPECIALIDAD_ECO = "Economía aplicada";
+    const ESPECIALIDAD_BBDD = "Base de datos";
+
+    public function __get($propiedad) {
+        return $this->$propiedad;
+    }
+
+    public function __set($propiedad, $valor) {
+        $this->$propiedad = $valor;
+    }
+
+    public function __destruct() {
+        echo "Destruyendo el objeto " . $this->nombre . "<br>";
+    }
+
+    public function imprimir(){
+        echo "Nombre del docente: " . $this->nombre . "<br>";
+        echo "Especialidad: " . $this->especialidad . "<br><br>";
+    }
+
+     public function imprimirEspecialidadesHabilitadas(){
+        echo "Especialidades: <br>";
+        echo self::ESPECIALIDAD_WP . "<br>";
+        echo self::ESPECIALIDAD_ECO . "<br>";
+        echo self::ESPECIALIDAD_BBDD . "<br>";
+
+    }
 }
 
-$alumno1 = new Alumno();
-$alumno1->dni = "3215651";
-$alumno1->nombre = "Ana Valle";
+//Programa
+$alumno2 = new Alumno();
+$alumno2->setNombre("Ana Perez");
+$alumno2->setDni("40989920");
+$alumno2->setEdad(25);
+$alumno2->setNacionalidad("Argentina");
+echo $alumno2->getNombre();
+
+$alumno2->notaPhp = 9;
+$alumno2->notaPortfolio = 8;
+$alumno2->notaProyecto = 9;
+$alumno2->imprimir();
+
+$alumno1 = new Alumno("35987123", "Juana Mendoza");
 $alumno1->edad = 32;
-$alumno1->nacionalidad = "Uruguayo";
+$alumno1->nacionalidad = "Argentina";
 $alumno1->notaPhp = 8;
 $alumno1->notaPortfolio = 9;
-$alumno1->notaProyecto = 7;
+$alumno1->notaProyecto = 10;
 $alumno1->imprimir();
 
 
-
-
+$docente1 = new Docente("65847123", "Sergio Gonzalez", "Sergiogonzalez@gmail.com", "+59814651358");
+$docente1->nombre = "Sergio Gonzalez";
+$docente1->especialidad = Docente::ESPECIALIDAD_ECO;
+$docente1->imprimir();
+$docente1->imprimirEspecialidadesHabilitadas();
 
 ?>
