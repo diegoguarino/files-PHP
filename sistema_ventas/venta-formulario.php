@@ -55,7 +55,7 @@ include_once "header.php";
                 </div>
                 <div class="col-6 form-group">
                     <label for="lstProducto">Producto:</label>
-                    <select required="" class="form-control" selectpicker data-live-search="true" name="lstProducto" id="lstProducto">
+                    <select required="" class="form-control selectpicker"  data-live-search="true" name="lstProducto" id="lstProducto">
                         <option value="" disabled selected>Seleccionar</option>
                     </select>
                 </div>
