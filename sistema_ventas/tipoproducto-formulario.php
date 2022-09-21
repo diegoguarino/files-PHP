@@ -66,7 +66,7 @@ include_once "header.php";
         </div>
         <!-- /.container-fluid -->
 
-      </div>
+    </div>
       <!-- End of Main Content -->
 <script>
 
