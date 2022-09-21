@@ -1,14 +1,45 @@
 <?php
+include_once "config.php";
+include_once "entidades/tipoproducto.php";
 
-include_once("config.php");
+$tipoProducto = new TipoProducto();
+
+if ($_POST) {
+    if (isset($_POST["btnGuardar"])) {
+        $tipoProducto->cargarFormulario($_REQUEST);
+
+        if (isset($_GET["id"]) && $_GET["id"] > 0) {
+            $tipoProducto->actualizar();
+            $msg["texto"] = "Actualizado correctamente";
+            $msg["codigo"] = "alert-success";
+        } else {
+            $tipoProducto->insertar();
+            $msg["texto"] = "Insertado correctamente";
+             $msg["codigo"] = "alert-danger";
+        }
+
+    } else if (isset($_POST["btnBorrar"])) {
+        $tipoProducto->cargarFormulario($_REQUEST);
+        $tipoProducto->eliminar();
+        header("Location: tipoproducto-listado.php");
+    }
+}
+
+if (isset($_GET["id"]) && $_GET["id"] > 0) {
+    $tipoProducto->cargarFormulario($_REQUEST);
+    $tipoProducto->obtenerPorId();
+}
+
+
 include_once "header.php";
-?>
 
+
+?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Productos</h1>
+          <h1 class="h3 mb-4 text-gray-800">Tipo de productos</h1>
           <?php if (isset($msg)): ?>
             <div class="row">
                 <div class="col-12">
@@ -31,39 +62,7 @@ include_once "header.php";
                     <label for="txtNombre">Nombre:</label>
                     <input type="text" required class="form-control" name="txtNombre" id="txtNombre" value="">
                 </div>
-                <div class="col-6 form-group mt-2">
-                    <label for="lstTipoDeProducto"></label>
-                    <select  required class="form-control" name="lstTipoDeProducto" id="lstTipoDeProducto">
-                        <option disabled selected>Seleccionar</option>
-                        <option value="">Librería</option>
-                        <option value="">Informática</option>
-                        <option value="">Muebles</option>
-                        <option value="">Bazar</option>
-                        <option value="">Electrodomésticos</option>
-                    </select>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-6 form-group">
-                    <label for="txtCantidad">Cantidad:</label>
-                    <input type="text" required class="form-control" name="txtCantidad" id="txtCantidad" value="">
-                </div>
-                <div class="col-6 form-group">
-                    <label for="txtPrecio">Precio:</label>
-                    <input type="number" required class="form-control" name="txtPrecio" id="txtPrecio" value="" placeholder="0">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 form-group">
-                    <label for="txtDescripcion">Descripción:</label>
-                    <textarea class="form-control" name="txtDescripcion" id="txtDescripcion" cols="30" rows="2"></textarea>
-                </div>               
-            </div>
-            <div class="row">
-                <div class="col-12 form-group">
-                    <label for="fileProducto">Imagen:</label><br>                    
-                    <input type="file" name="fileProducto" id="fileProducto" value="">                                                       
-                </div>
         </div>
         <!-- /.container-fluid -->
 

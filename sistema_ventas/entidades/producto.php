@@ -27,27 +27,14 @@ class Producto
         return $this;
     }
 
-    public function cargarFormulario($request)
-    {
-        $this->idproducto = isset($request["id"]) ? $request["id"] : "";
-        $this->nombre = isset($request["txtNombre"]) ? $request["txtNombre"] : "";
-        $this->cantidad = isset($request["txtcantidad"]) ? $request["txtcantidad"] : "";
-        $this->precio = isset($request["txtprecio"]) ? $request["txtprecio"] : "";
-        $this->descripcion = isset($request["txtdescripcion"]) ? $request["txtdescripcion"] : "";
-        $this->imagen = isset($request["lstimagen"]) ? $request["lstimagen"] : "";
-        $this->fk_idtipodeproducto = isset($request["lstfk_idtipodeproducto"]) ? $request["lstfk_idtipodeproducto"] : "";
-        $this->domicilio = isset($request["txtDomicilio"]) ? $request["txtDomicilio"] : "";
-        if (isset($request["txtAnioNac"]) && isset($request["txtMesNac"]) && isset($request["txtDiaNac"])) {
-            $this->fecha_nac = $request["txtAnioNac"] . "-" . $request["txtMesNac"] . "-" . $request["txtDiaNac"];
-        }
-    }
+    
 
     public function insertar()
     {
         //Instancia la clase mysqli con el constructor parametrizado
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
         //Arma la query
-        $sql = "INSERT INTO producto (
+        $sql = "INSERT INTO productos (
                     nombre,
                     cantidad,
                     precio,
@@ -78,7 +65,7 @@ class Producto
     {
 
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
-        $sql = "UPDATE producto SET
+        $sql = "UPDATE productos SET
                 nombre = '$this->nombre',
                 cantidad = $this->cantidad,
                 precio = $this->precio,
@@ -97,7 +84,7 @@ class Producto
     public function eliminar()
     {
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
-        $sql = "DELETE FROM producto WHERE idproducto = " . $this->idproducto;
+        $sql = "DELETE FROM productos WHERE idproducto = " . $this->idproducto;
         //Ejecuta la query
         if (!$mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
@@ -115,7 +102,7 @@ class Producto
                         descripcion,
                         imagen,
                         fk_idtipodeproducto                       
-                FROM producto
+                FROM productos
                 WHERE idproducto = $this->idproducto";
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
@@ -145,7 +132,7 @@ class Producto
                     descripcion,
                     imagen,
                     fk_idtipodeproducto,
-                FROM producto";
+                FROM productos";
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
@@ -162,7 +149,8 @@ class Producto
                 $entidadAux->precio = $fila["precio"];
                 $entidadAux->descripcion = $fila["descripcion"];
                 $entidadAux->imagen = $fila["imagen"];               
-                $entidadAux->fk_idtipodeproducto = $fila["fk_idtipodeproducto"];                
+                $entidadAux->fk_idtipodeproducto = $fila["fk_idtipodeproducto"];
+                $aResultado[] = $entidadAux;               
             }
         }
         return $aResultado;
