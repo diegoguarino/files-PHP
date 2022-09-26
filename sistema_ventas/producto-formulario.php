@@ -12,7 +12,7 @@ $producto = new Producto();
 if ($_POST) {
     if (isset($_POST["btnGuardar"])) {
         $producto->cargarFormulario($_REQUEST);
-
+                //subo la imagen
         if (isset($_GET["id"]) && $_GET["id"] > 0) {
             if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK){
                 $nombreAleatorio = date("Ymdhmsi");
@@ -20,6 +20,7 @@ if ($_POST) {
                 $nombreArchivo = $_FILES["archivo"]["name"];
                 $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
                 $nombreImagen = "$nombreAleatorio.$extension";
+                move_uploaded_file($archivo_tmp, "imagenes/$nombreImagen");
 
                 if($extension == "png" || $extension == "jpg" || $extension == "jpeg"){
                     //elimino la imagen anterior
@@ -28,11 +29,7 @@ if ($_POST) {
                     $productoAnt ->obtenerPorId();
                     if(file_exists("files/$producto->imagen")){
                         unlink("files/$producto->imagen");
-                    }
-                    
-
-                    //subo la imagen nueva
-                move_uploaded_file($archivo_tmp, "imagenes/$nombreImagen");
+                    }               
                 }
                 $producto->imagen = $nombreImagen;
             } else {

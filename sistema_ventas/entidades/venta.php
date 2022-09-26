@@ -238,15 +238,16 @@ class Venta {
     }
 
     public function obtenerFacturacionMensual($mes){
-        $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, 3310);
+        $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
         $sql = "SELECT SUM(total) AS total FROM ventas WHERE MONTH(fecha) = $mes";
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
         $fila = $resultado->fetch_assoc();
         $mysqli->close();
-        return $fila["total"];
+        return  $fila["total"] != "" ? $fila["total"] : 0;
     }
+
 
     public function obtenerFacturacionAnual($anio){
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
@@ -256,7 +257,7 @@ class Venta {
         }
         $fila = $resultado->fetch_assoc();
         $mysqli->close();
-        return $fila["total"];
+        return $fila["total"] != "" ? $fila["total"] : 0;
     }
 
 }
