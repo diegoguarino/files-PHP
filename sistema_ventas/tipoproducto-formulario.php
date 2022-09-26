@@ -1,8 +1,12 @@
 <?php
 include_once "config.php";
 include_once "entidades/tipoproducto.php";
+include_once "entidades/producto.php";
+
+$pg = "Edición de tipo de productos";
 
 $tipoProducto = new TipoProducto();
+
 
 if ($_POST) {
     if (isset($_POST["btnGuardar"])) {
@@ -15,12 +19,20 @@ if ($_POST) {
         } else {
             $tipoProducto->insertar();
             $msg["texto"] = "Insertado correctamente";
-             $msg["codigo"] = "alert-danger";
+            $msg["codigo"] = "alert-success";
         }   
     } else if (isset($_POST["btnBorrar"])) {
         $tipoProducto->cargarFormulario($_REQUEST);
-        $tipoProducto->eliminar();
-        header("Location: tipoproducto-listado.php");
+
+        //Busco aquellos productos que tengan este tipo de producto
+        $producto = new Producto();
+        if($producto->obtenerPorTipo($tipoProducto->idtipoproducto)){
+            $msg["texto"] = "No se puede eliminar un tipo de producto con productos asociados";     //No se puede eliminar
+            $msg["codigo"] = "alert-danger";
+        } else {
+            $tipoProducto->eliminar();
+            header("Location: tipoproducto-listado.php");    //Elimino    
+        }        
     }
 }        
 
@@ -32,7 +44,7 @@ if (isset($_GET["id"]) && $_GET["id"] > 0) {
 
 
 
-include_once "header.php";
+include_once ("header.php");
 
 
 ?>
@@ -74,3 +86,4 @@ include_once "header.php";
 
 </script>
 <?php include_once "footer.php";?>
+

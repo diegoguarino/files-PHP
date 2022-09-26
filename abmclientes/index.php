@@ -30,7 +30,7 @@ if($_POST){
     if($pos>=0){
         if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
             $nombreAleatorio = date("Ymdhmsi"); //2021010420453710
-            $archivo_tmp = $_FILES["archivo"]["tmp_name"];
+            $archivo_tmp = $_FILES["archivo"]["tmp_name"];           
             $extension = strtolower(pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION));
             if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
                 $nombreImagen = "$nombreAleatorio.$extension";
