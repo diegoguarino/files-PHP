@@ -3,7 +3,6 @@ include_once "config.php";
 include_once "entidades/tipoproducto.php";
 include_once "entidades/producto.php";
 
-$pg = "Edición de tipo de productos";
 
 $tipoProducto = new TipoProducto();
 
@@ -43,6 +42,7 @@ if (isset($_GET["id"]) && $_GET["id"] > 0) {
 
 
 
+$pg = "Edición de tipo de productos";
 
 include_once ("header.php");
 

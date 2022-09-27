@@ -24,9 +24,11 @@ if($_POST){
                 $total = $venta->cantidad * $producto->precio;
                 $venta->total = $total;
                 $venta->insertar();
-
+                
                 $producto->cantidad -= $venta->cantidad;
                 $producto->actualizar();
+                $msg["texto"] = "La venta ha sido realizada con exito";
+                $msg["codigo"] = "alert-success";
             } else {
                 $msg = "No hay stock suficiente";
             }
@@ -67,9 +69,18 @@ include_once("header.php");
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Venta</h1>
+          <?php if (isset($msg) && $msg != ""): ?>
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert <?php echo $msg["codigo"]; ?>" role="alert">
+                        <?php echo $msg["texto"]; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif;?>
             <div class="row">
                 <div class="col-12 mb-3">
-                    <a href="ventas.php" class="btn btn-primary mr-2">Listado</a>
+                    <a href="venta-listado.php" class="btn btn-primary mr-2">Listado</a>
                     <a href="venta-formulario.php" class="btn btn-primary mr-2">Nuevo</a>
                     <button type="submit" class="btn btn-success mr-2" id="btnGuardar" name="btnGuardar">Guardar</button>
                     <button type="submit" class="btn btn-danger" id="btnBorrar" name="btnBorrar">Borrar</button>
@@ -77,11 +88,6 @@ include_once("header.php");
             </div>
             <div class="row">
                 <div class="col-12 form-group">
-                    <?php if(isset($msg) && $msg != ""): ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?php echo $msg; ?>
-                    </div>
-                <?php endif; ?>
                     <label for="txtFechaNac" class="d-block">Fecha y hora:</label>
                     <select class="form-control d-inline" name="txtDia" id="txtDia" style="width: 80px">
                         <option selected="" disabled="">DD</option>
