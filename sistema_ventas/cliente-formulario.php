@@ -27,7 +27,7 @@ if($_POST){
     } else if(isset($_POST["btnBorrar"])){
         //Si existen ventas asocidas al cliente que de intenta eliminar, muestra mensaje de alerta
         $venta = new Venta();
-        if($venta->obtenerPorCliente($cliente->idcliente)){
+        if($venta->obtenerVentasPorCliente($cliente->idcliente)){
             $msg["texto"] = "No se puede eliminar un cliente con ventas asociadas";     //No se puede eliminar
             $msg["codigo"] = "alert-danger";
         } else {
