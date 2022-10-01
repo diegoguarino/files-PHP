@@ -16,9 +16,9 @@ if($_POST){
 
 	}
 
-    if($entidadUsuario == $nombreUsuario && $clave == password_verify($clave, $entidadUsuario->clave)){            //Si el usuario es admin y la clave es admin123    
-    $_SESSION["nombre"] = $entidadUsuario->nombre . " " . $entidadUsuario->apellido;                                  //Crear una variable de session con tu nombre
-        header("Location: index.php");                              //Redireccionar a index.php                               
+    if($entidadUsuario->usuario == $nombreUsuario && $clave == password_verify($clave, $entidadUsuario->clave)){ //Si el usuario es admin y la clave es admin123    
+    $_SESSION["nombre"] = $entidadUsuario->nombre . " " . $entidadUsuario->apellido; //Crear una variable de session con tu nombre
+        header("Location: index.php");   //Redireccionar a index.php                               
     }else {
 		$msg = "Usuario o clave incorrecto";
   	}
