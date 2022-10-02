@@ -9,8 +9,8 @@ $producto = new Producto();
 if ($_POST) {
     if (isset($_POST["btnGuardar"])) {
         $producto->cargarFormulario($_REQUEST);
-
-        //Estoy actualizando
+        
+        //estoy actualizando
         if (isset($_GET["id"]) && $_GET["id"] > 0) {
 
             if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
@@ -22,21 +22,21 @@ if ($_POST) {
 
                 if ($extension == "png" || $extension == "jpg" || $extension == "jpeg") {
                     //Elimino la imagen anterior
-                    $productoAnt = new Producto();
-                    $productoAnt->idproducto = $_GET["id"];
+                    $productoAnt = new Producto(); //busco el producto que esta en la BBDD, para extraer...
+                    $productoAnt->idproducto = $_GET["id"];  //el nombre anterior de la imagen /se conecta a la bbdd para extrar el nombre de la imagen.
                     $productoAnt->obtenerPorId();
-                    if (file_exists("files/$productoAnt->imagen")) {
-                        unlink("files/$productoAnt->imagen");
+                    if (file_exists("files/$productoAnt->imagen")) { //pregunta si el archivo existe
+                        unlink("files/$productoAnt->imagen");   //si existe lo borra
                     }
-                    //Subo la imagen nueva
-                    move_uploaded_file($archivo_tmp, "files/$nombreImagen");
+                    
+                    move_uploaded_file($archivo_tmp, "files/$nombreImagen"); //Subo la imagen nueva
                 }
                 $producto->imagen = $nombreImagen;
             } else {
-                $productoAnt = new Producto();
+                $productoAnt = new Producto(); 
                 $productoAnt->idproducto = $_GET["id"];
                 $productoAnt->obtenerPorId();
-                $producto->imagen = $productoAnt->imagen;
+                
             }
 
             $producto->actualizar();
