@@ -38,7 +38,7 @@ if ($_POST) { //es postback?
             <div class="col-4">
                 <?php if(isset($msg)): ?>
                     <div class="alert alert-danger" role="alert">
-                        <?php echo $msj; ?>
+                        <?php echo $msg; ?>
                     </div>                                       
                 <?php endif; ?>            
                 <form method="POST" action="index.php"> 
