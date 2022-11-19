@@ -8,13 +8,11 @@ if ($_POST) { //es postback?
     $usuario = $_POST["txtUsuario"];
     $clave = $_POST["txtClave"];
     
-
     if ($usuario != "" && $clave != "") {
         header("Location: acceso-confirmado.php");
     }else {
         $msg = "Únicamente valido para usuarios registrados";
     }
-
 }
 
 ?>
